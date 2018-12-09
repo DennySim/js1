@@ -36,3 +36,19 @@ function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+
+let contactList = JSON.parse(loadContacts());
+let contactNodes =  document.querySelector('.contacts-list');
+let contactForHtmlList = "";
+
+for (let contact of contactList) {
+  console.log(contact.name);
+  let htmlContact = "<li data-email=\"" + contact.email + "\" data-phone=\"" +
+    contact.phone + "\"><strong>" + contact.name + "</strong></li>";
+  contactForHtmlList = contactForHtmlList.concat(htmlContact);
+}
+
+contactNodes.innerHTML = contactForHtmlList;
+
+
+
