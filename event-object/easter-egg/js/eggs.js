@@ -8,11 +8,7 @@ let input = ""
 function showHideMenu(e) {
 
   if (e.key === "T" && e.altKey && e.ctrlKey) {
-    if (!document.getElementsByTagName('nav')[0].classList.contains('visible')) {
-      document.getElementsByTagName('nav')[0].classList.add('visible');
-    } else {
-      document.getElementsByTagName('nav')[0].classList.remove('visible');
-    }
+    document.getElementsByTagName('nav')[0].classList.toggle('visible');
   }
 
   let keyPressed = e.code.split('').pop().toLowerCase();
