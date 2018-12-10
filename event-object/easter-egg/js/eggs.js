@@ -6,8 +6,7 @@ const secret = "ytnjkjubz";
 let input = ""
 
 function showHideMenu(e) {
-
-  if (e.key === "T" && e.altKey && e.ctrlKey) {
+  if (e.code === "KeyT" && e.altKey && e.ctrlKey) {
     document.getElementsByTagName('nav')[0].classList.toggle('visible');
   }
 
