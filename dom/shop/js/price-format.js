@@ -9,18 +9,14 @@ let cartTotalPrice = document.querySelector('#cart-total-price');
 let goodsQuantity = 0;
 let goodsTotalPrice = 0;
 
-function changeQuantity() {
+function changeQuantityAndSum() {
   goodsQuantity++;
   cart.innerHTML = goodsQuantity;
-}
 
-function changeSum() {
   goodsTotalPrice += Number(this.dataset.price);
-  cartTotalPrice.innerHTML = goodsTotalPrice;
-  getPriceFormatted(goodsTotalPrice);
+  cartTotalPrice.innerHTML = getPriceFormatted(goodsTotalPrice);
 }
 
 for (let btn of buttons) {
-  btn.addEventListener('click', changeQuantity);
-  btn.addEventListener('click', changeSum);
+  btn.addEventListener('click', changeQuantityAndSum);
 }

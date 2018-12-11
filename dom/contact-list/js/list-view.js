@@ -43,8 +43,9 @@ let contactForHtmlList = "";
 
 for (let contact of contactList) {
   console.log(contact.name);
-  let htmlContact = "<li data-email=\"" + contact.email + "\" data-phone=\"" +
-    contact.phone + "\"><strong>" + contact.name + "</strong></li>";
+
+  let htmlContact = `<li data-email="${contact.email}" 
+    data-phone="${contact.phone}"><strong>"${contact.name}"</strong></li>`;
   contactForHtmlList = contactForHtmlList.concat(htmlContact);
 }
 
