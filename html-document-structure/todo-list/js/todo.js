@@ -9,10 +9,9 @@ inputs.forEach(input => input.addEventListener('click', replace));
 function replace(e) {
 
   const label = e.currentTarget.parentNode;
-  if (e.currentTarget.classList.contains('checked')) {
+  if (e.currentTarget.checked) {
     done.appendChild(label);
   } else {
     undone.appendChild(label);
   }
-  e.currentTarget.classList.toggle('checked');
 }

@@ -13,36 +13,33 @@ function toggle() {
   activeElement.classList.toggle('slide-current');
 }
 
+function action(action1, action2, state=null) {
+  for (let a of allLinks) {
+    if (state === null) {
+      if (a.dataset.action === action1 || a.dataset.action === action2) {
+        a.classList.toggle('disabled');
+      }
+    } else {
+      if (a.classList.contains(state) && a.dataset.action === action1 ||
+            a.dataset.action === action2) {
+        a.classList.remove('disabled');
+      }
+    }
+  }
+}
+
 function buttonsBlocking(pos) {
   if (pos === 'last') {
-    for (let a of allLinks) {
-      if (a.dataset.action === 'last' || a.dataset.action === 'next') {
-        a.classList.toggle('disabled');
-      }
-    }
+    action('last', 'next');
   }
   if (pos === 'first') {
-    for (let a of allLinks) {
-      if (a.dataset.action === 'first' || a.dataset.action === 'prev') {
-        a.classList.toggle('disabled');
-      }
-    }
+    action('first', 'prev');
   }
   if (pos === 'removeDisabledIfOnFirstPrev') {
-    for (let a of allLinks) {
-      if (a.classList.contains('disabled') && a.dataset.action === 'first' ||
-        a.dataset.action === 'prev') {
-        a.classList.remove('disabled');
-      }
-    }
+    action('first', 'prev', 'disabled');
   }
   if (pos === 'removeDisabledIfOnLastNext') {
-    for (let a of allLinks) {
-      if (a.classList.contains('disabled') && a.dataset.action === 'last' ||
-        a.dataset.action === 'next') {
-        a.classList.remove('disabled');
-      }
-    }
+    action('last', 'next', 'disabled');
   }
 }
 
