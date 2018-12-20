@@ -5,7 +5,7 @@ allLinks.forEach(link => link.addEventListener('click', clickButtons));
 
 const slides = document.querySelector('.slides').children;
 document.querySelector('.slides').firstElementChild.classList.add('slide-current');
-buttonsBlocking('first');
+updateSliderButtons(['first', 'prev'], true)
 
 let activeElement = document.querySelector('.slide-current');
 
@@ -13,33 +13,11 @@ function toggle() {
   activeElement.classList.toggle('slide-current');
 }
 
-function action(action1, action2, state=null) {
+function updateSliderButtons(actions, setDisabledClass) {
   for (let a of allLinks) {
-    if (state === null) {
-      if (a.dataset.action === action1 || a.dataset.action === action2) {
-        a.classList.toggle('disabled');
-      }
-    } else {
-      if (a.classList.contains(state) && a.dataset.action === action1 ||
-            a.dataset.action === action2) {
-        a.classList.remove('disabled');
-      }
+    if (actions.includes(a.dataset.action)) {
+      a.classList.toggle('disabled', setDisabledClass);
     }
-  }
-}
-
-function buttonsBlocking(pos) {
-  if (pos === 'last') {
-    action('last', 'next');
-  }
-  if (pos === 'first') {
-    action('first', 'prev');
-  }
-  if (pos === 'removeDisabledIfOnFirstPrev') {
-    action('first', 'prev', 'disabled');
-  }
-  if (pos === 'removeDisabledIfOnLastNext') {
-    action('last', 'next', 'disabled');
   }
 }
 
@@ -48,36 +26,32 @@ function clickButtons(e) {
     toggle();
     switch (e.currentTarget.dataset.action) {
       case 'prev':
-        if (activeElement === activeElement.parentNode.lastElementChild) {
-          buttonsBlocking('last');
-        }
         activeElement = activeElement.previousElementSibling;
         toggle();
+        updateSliderButtons(['last', 'next'], false)
         if (activeElement === activeElement.parentNode.firstElementChild) {
-          buttonsBlocking('first');
+          updateSliderButtons(['first', 'prev'], true)
         }
         break;
       case 'next':
-        if (activeElement === activeElement.parentNode.firstElementChild) {
-          buttonsBlocking('first');
-        }
         activeElement = activeElement.nextElementSibling;
         toggle();
+        updateSliderButtons(['first', 'prev'], false)
         if (activeElement === activeElement.parentNode.lastElementChild) {
-          buttonsBlocking('last');
+          updateSliderButtons(['last', 'next'], true)
         }
         break;
       case 'first':
         activeElement = activeElement.parentNode.firstElementChild;
         toggle();
-        buttonsBlocking('first');
-        buttonsBlocking('removeDisabledIfOnLastNext');
+        updateSliderButtons(['first', 'prev'], true)
+        updateSliderButtons(['last', 'next'], false)
         break;
       case 'last':
         activeElement = activeElement.parentNode.lastElementChild;
         toggle();
-        buttonsBlocking('last');
-        buttonsBlocking('removeDisabledIfOnFirstPrev');
+        updateSliderButtons(['last', 'next'], true)
+        updateSliderButtons(['first', 'prev'], false)
         break;
     }
   }
