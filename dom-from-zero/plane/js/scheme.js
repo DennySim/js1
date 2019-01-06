@@ -38,11 +38,13 @@ btnSeatMap.onclick = function (e) {
 
   document.querySelectorAll('.seat').forEach((seat) => {
     seat.addEventListener('click', e => {
-
-      if (e.altKey) {
+      if (e.currentTarget.classList.contains('adult') ||
+        e.currentTarget.classList.contains('half')) {
+        e.currentTarget.classList.remove('half');
+        e.currentTarget.classList.remove('adult');
+      } else if (e.altKey) {
         e.currentTarget.classList.remove('adult');
         e.currentTarget.classList.add('half');
-
       } else {
         e.currentTarget.classList.remove('half');
         e.currentTarget.classList.add('adult');
