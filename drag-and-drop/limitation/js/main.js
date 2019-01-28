@@ -23,6 +23,7 @@ function input() {
 }
 
 function view() {
+    block.classList.remove('active');
     message.classList.add('view');
 }
 
